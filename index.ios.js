@@ -21,30 +21,28 @@ export default class TrumpSearch extends Component {
   componentDidMount(){
     let _this = this;
     axios.get('https://trumpdonald.herokuapp.com/random')
-    .then(function (response) {
-      console.log(response);
+    .then( response => {
       _this.setState({
         data:response.data.value,
       })
     })
-    .catch(function (error) {
+    .catch(error => {
       console.log(error);
     });
   }
 
   changeQuote(text){
     let _this = this;
-    console.log("TEST",text)
     axios.post('https://trumpdonald.herokuapp.com/search',{
       search:text.text
     })
-    .then(function (response) {
+    .then(response => {
       let rando = Math.floor(Math.random() * response.data._embedded.quotes.length) + 1;
       _this.setState({
         data:response.data._embedded.quotes[rando-1].value
       })
     })
-    .catch(function (error) {
+    .catch(error => {
       console.log(error);
     });
   }
